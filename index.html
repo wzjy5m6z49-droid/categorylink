@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Quick Links Test</title>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style>
+html,
+body{
+  margin:0;
+  padding:20px;
+  font-family:"Segoe UI",sans-serif;
+  background:#f5f7fa;
+}
+
+.links{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.link{
+  display:flex;
+  align-items:center;
+  gap:12px;
+
+  padding:16px;
+
+  background:#fff;
+
+  border-radius:12px;
+
+  text-decoration:none;
+  color:#222;
+
+  box-shadow:
+    0 4px 12px rgba(0,0,0,.08);
+
+  transition:.2s;
+}
+
+.link:hover{
+  transform:translateY(-2px);
+}
+
+.link svg{
+  width:22px;
+  height:22px;
+}
+
+.status{
+  margin-bottom:16px;
+  color:#666;
+  font-size:14px;
+}
+</style>
+</head>
+<body>
+
+<div id="status" class="status">
+読み込み中...
+</div>
+
+<div id="links" class="links"></div>
+
+<script>
+
+const status = document.getElementById('status');
+
+const script = document.createElement('script');
+
+script.src =
+'https://digitalgojp.sharepoint.com/sites/NTA_IBHub12/SiteAssets/quick-links/quick-links-data.js?v='
++ Date.now();
+
+script.onload = () => {
+
+  console.log(window.quickLinksData);
+
+  const data =
+    [...(window.quickLinksData || [])]
+      .sort((a,b) => a.sortOrder - b.sortOrder);
+
+  status.textContent =
+    `読込成功 : ${data.length}件`;
+
+  const app =
+    document.getElementById('links');
+
+  app.innerHTML = '';
+
+  data.forEach(item => {
+
+    const el =
+      document.createElement('a');
+
+    el.className = 'link';
+
+    el.href = item.link;
+
+    el.target = '_blank';
+
+    el.innerHTML = `
+      <i data-lucide="${item.icon}"></i>
+      <span>${item.title}</span>
+    `;
+
+    app.appendChild(el);
+
+  });
+
+  lucide.createIcons();
+
+};
+
+script.onerror = () => {
+
+  status.textContent =
+    'quick-links-data.js の読み込み失敗';
+
+  console.error(
+    'quick-links-data.js の読み込み失敗'
+  );
+
+};
+
+document.head.appendChild(script);
+
+</script>
+
+</body>
+</html>
