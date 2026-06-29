@@ -12,30 +12,33 @@ script.onload = () => {
         [...(window.quickLinksData || [])]
         .sort((a,b)=>a.sortOrder-b.sortOrder);
 
-    app.innerHTML="";
+    el.innerHTML = `
 
-    data.forEach(item=>{
+<div class="glass-layer"></div>
 
-        const el = document.createElement("a");
+<div class="glass-highlight"></div>
 
-        el.className="link";
-        el.href=item.link;
-        el.target="_blank";
+<div class="glass-noise"></div>
 
-        el.innerHTML=`
-            <div class="left">
-                <i data-lucide="${item.icon}"></i>
-                <span>${item.title}</span>
-            </div>
+<div class="glass-content">
 
-            <div class="arrow">
-                <i data-lucide="chevron-right"></i>
-            </div>
-        `;
+    <div class="left">
 
-        app.appendChild(el);
+        <i data-lucide="${item.icon}"></i>
 
-    });
+        <span>${item.title}</span>
+
+    </div>
+
+    <div class="arrow">
+
+        <i data-lucide="chevron-right"></i>
+
+    </div>
+
+</div>
+
+`;
 
     lucide.createIcons();
 
