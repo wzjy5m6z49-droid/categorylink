@@ -12,39 +12,46 @@ script.onload = () => {
         [...(window.quickLinksData || [])]
         .sort((a,b)=>a.sortOrder-b.sortOrder);
 
-    el.innerHTML = `
+    app.innerHTML = "";
 
-<div class="glass-layer"></div>
+    data.forEach(item=>{
 
-<div class="glass-highlight"></div>
+        const el = document.createElement("a");
 
-<div class="glass-noise"></div>
+        el.className = "link glass";
+        el.href = item.link;
+        el.target = "_blank";
 
-<div class="glass-content">
+        el.innerHTML = `
+            <div class="glass-layer"></div>
+            <div class="glass-highlight"></div>
+            <div class="glass-noise"></div>
 
-    <div class="left">
+            <div class="glass-content">
+                <div class="left">
+                    <i data-lucide="${item.icon}"></i>
+                    <span>${item.title}</span>
+                </div>
 
-        <i data-lucide="${item.icon}"></i>
+                <div class="arrow">
+                    <i data-lucide="chevron-right"></i>
+                </div>
+            </div>
+        `;
 
-        <span>${item.title}</span>
+        app.appendChild(el);
 
-    </div>
-
-    <div class="arrow">
-
-        <i data-lucide="chevron-right"></i>
-
-    </div>
-
-</div>
-
-`;
+    });
 
     lucide.createIcons();
 
+    if (typeof initGlass === "function") {
+        initGlass();
+    }
+
 };
 
-script.onerror=()=>{
+script.onerror = () => {
     console.error("quick-links-data.js の読み込みに失敗しました");
 };
 
