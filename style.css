@@ -11,231 +11,123 @@ body{
 }
 
 .links{
+
     display:grid;
+
     grid-template-columns:repeat(2,minmax(0,1fr));
+
     gap:12px;
+
     width:100%;
+
     padding:2px;
+
 }
 
-/* Glass Engine v1 */
 .link{
-    position:relative;
-    overflow:hidden;
 
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
-    gap:10px;
 
     min-height:56px;
-    padding:13px 15px;
 
-    text-decoration:none;
-    color:#fff;
+    padding:14px 16px;
 
     border-radius:20px;
 
-    background:
-        radial-gradient(circle at 18% 12%, rgba(255,255,255,.26), transparent 28%),
-        radial-gradient(circle at 88% 90%, rgba(0,210,255,.12), transparent 42%),
-        rgba(255,255,255,.055);
+    text-decoration:none;
 
-    border:1px solid rgba(255,255,255,.28);
+    color:white;
 
-    backdrop-filter:blur(18px) saturate(160%);
-    -webkit-backdrop-filter:blur(18px) saturate(160%);
-
-    box-shadow:
-        0 10px 22px rgba(0,0,0,.13),
-        inset 0 1px 0 rgba(255,255,255,.42),
-        inset 0 -1px 0 rgba(255,255,255,.10),
-        inset 1px 0 0 rgba(255,255,255,.10);
-
-    transition:
-        transform .25s ease,
-        background .25s ease,
-        border-color .25s ease,
-        box-shadow .25s ease;
 }
 
-/* 液体っぽい内部反射 */
-.link::after{
-    content:"";
-    position:absolute;
-    inset:-20%;
-    border-radius:inherit;
+.glass-content{
 
-    background:
-        radial-gradient(circle at 22% 22%, rgba(255,255,255,.18), transparent 24%),
-        radial-gradient(circle at 78% 76%, rgba(0,230,255,.13), transparent 32%),
-        radial-gradient(circle at 38% 92%, rgba(0,255,180,.08), transparent 30%);
+    display:flex;
 
-    opacity:.85;
-    pointer-events:none;
+    justify-content:space-between;
 
-    animation:liquidFloat 9s ease-in-out infinite alternate;
-}
+    align-items:center;
 
-/* 5秒に1回流れる光沢 */
-.link::before{
-    content:"";
-    position:absolute;
-    top:-80%;
-    left:-100%;
-    width:75%;
-    height:260%;
+    width:100%;
 
-    background:
-        linear-gradient(
-            115deg,
-            transparent 0%,
-            rgba(255,255,255,0) 30%,
-            rgba(255,255,255,.34) 48%,
-            rgba(255,255,255,0) 68%,
-            transparent 100%
-        );
-
-    transform:rotate(12deg);
-    opacity:0;
-    pointer-events:none;
-
-    animation:glassShine 5.8s ease-in-out infinite;
-}
-
-.link:hover{
-    transform:translateY(-3px) scale(1.01);
-
-    background:
-        radial-gradient(circle at 18% 12%, rgba(255,255,255,.34), transparent 30%),
-        radial-gradient(circle at 88% 90%, rgba(0,210,255,.16), transparent 42%),
-        rgba(255,255,255,.085);
-
-    border-color:rgba(255,255,255,.42);
-
-    box-shadow:
-        0 16px 32px rgba(0,0,0,.18),
-        inset 0 1px 0 rgba(255,255,255,.52),
-        inset 0 -1px 0 rgba(255,255,255,.14),
-        inset 1px 0 0 rgba(255,255,255,.14);
-}
-
-.link:active{
-    transform:scale(.975);
 }
 
 .left{
-    position:relative;
-    z-index:2;
 
     display:flex;
+
     align-items:center;
+
     gap:12px;
+
     min-width:0;
+
 }
 
 .left span{
+
     overflow:hidden;
+
     white-space:nowrap;
+
     text-overflow:ellipsis;
 
     font-size:14px;
-    font-weight:650;
-    letter-spacing:.15px;
 
-    color:#fff;
+    font-weight:600;
 
-    text-shadow:
-        0 1px 5px rgba(0,0,0,.30);
 }
 
 .left svg{
+
     width:26px;
+
     height:26px;
+
     flex-shrink:0;
 
-    color:#ffffff;
-
-    filter:
-        drop-shadow(0 0 5px rgba(190,245,255,.46))
-        drop-shadow(0 2px 4px rgba(0,0,0,.18));
-
-    transition:
-        transform .25s ease,
-        filter .25s ease;
-}
-
-.link:hover .left svg{
-    transform:scale(1.1);
-
-    filter:
-        drop-shadow(0 0 8px rgba(220,255,255,.78))
-        drop-shadow(0 3px 6px rgba(0,0,0,.22));
 }
 
 .arrow{
-    position:relative;
-    z-index:2;
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
-    opacity:.48;
+    opacity:.55;
 
-    transition:
-        opacity .25s ease,
-        transform .25s ease;
+    transition:.25s;
+
 }
 
 .arrow svg{
+
     width:18px;
+
     height:18px;
+
 }
 
 .link:hover .arrow{
-    opacity:1;
+
     transform:translateX(4px);
-}
 
-@keyframes glassShine{
-    0%{
-        left:-100%;
-        opacity:0;
-    }
-    58%{
-        left:-100%;
-        opacity:0;
-    }
-    70%{
-        opacity:.42;
-    }
-    84%{
-        left:125%;
-        opacity:.18;
-    }
-    100%{
-        left:125%;
-        opacity:0;
-    }
-}
+    opacity:1;
 
-@keyframes liquidFloat{
-    0%{
-        transform:translate3d(-1.5%, -1%, 0) scale(1.02);
-    }
-    100%{
-        transform:translate3d(1.5%, 1%, 0) scale(1.06);
-    }
 }
 
 @media(max-width:420px){
+
     .links{
+
         grid-template-columns:1fr;
+
     }
 
-    .link{
-        min-height:52px;
-        padding:12px 14px;
-    }
 }
