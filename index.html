@@ -1,116 +1,25 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Quick Links</title>
 
+<link rel="stylesheet" href="style.css">
+
 <script src="https://unpkg.com/lucide@latest"></script>
 
-<style>
-
-html,
-body{
-    margin:0;
-    padding:0;
-    background:transparent;
-    font-family:"Segoe UI",sans-serif;
-}
-
-.links{
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-}
-
-.link{
-    display:flex;
-    align-items:center;
-    gap:12px;
-
-    padding:12px 16px;
-
-    background:#fff;
-
-    border-radius:12px;
-
-    text-decoration:none;
-    color:#222;
-
-    box-shadow:0 4px 12px rgba(0,0,0,.08);
-
-    transition:.2s;
-}
-
-.link:hover{
-    transform:translateY(-2px);
-}
-
-.link svg{
-    width:22px;
-    height:22px;
-}
-
-</style>
-
 </head>
+
 <body>
 
 <div id="links" class="links"></div>
 
-<script>
-
-const script = document.createElement('script');
-
-script.src =
-'https://digitalgojp.sharepoint.com/sites/NTA_IBHub12/SiteAssets/quick-links/quick-links-data.js?v='
-+ Date.now();
-
-script.onload = () => {
-
-    const data =
-        [...(window.quickLinksData || [])]
-        .sort((a,b)=>a.sortOrder-b.sortOrder);
-
-    const app =
-        document.getElementById('links');
-
-    app.innerHTML='';
-
-    data.forEach(item=>{
-
-        const el =
-            document.createElement('a');
-
-        el.className='link';
-
-        el.href=item.link;
-
-        el.target='_blank';
-
-        el.innerHTML=`
-            <i data-lucide="${item.icon}"></i>
-            <span>${item.title}</span>
-        `;
-
-        app.appendChild(el);
-
-    });
-
-    lucide.createIcons();
-
-};
-
-script.onerror=()=>{
-
-    console.error("quick-links-data.js の読み込み失敗");
-
-};
-
-document.head.appendChild(script);
-
-</script>
+<script src="script.js"></script>
 
 </body>
+
 </html>
