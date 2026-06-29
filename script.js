@@ -26,6 +26,7 @@ script.onload = () => {
             <div class="glass-layer"></div>
             <div class="glass-highlight"></div>
             <div class="glass-noise"></div>
+            <div class="glass-reflection"></div>
 
             <div class="glass-content">
                 <div class="left">
