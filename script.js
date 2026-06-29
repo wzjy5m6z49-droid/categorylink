@@ -6,8 +6,7 @@ Date.now();
 
 script.onload = () => {
 
-    const app =
-        document.getElementById("links");
+    const app = document.getElementById("links");
 
     const data =
         [...(window.quickLinksData || [])]
@@ -17,31 +16,21 @@ script.onload = () => {
 
     data.forEach(item=>{
 
-        const el =
-            document.createElement("a");
+        const el = document.createElement("a");
 
         el.className="link";
-
         el.href=item.link;
-
         el.target="_blank";
 
         el.innerHTML=`
-
             <div class="left">
-
                 <i data-lucide="${item.icon}"></i>
-
                 <span>${item.title}</span>
-
             </div>
 
             <div class="arrow">
-
                 <i data-lucide="chevron-right"></i>
-
             </div>
-
         `;
 
         app.appendChild(el);
@@ -53,9 +42,7 @@ script.onload = () => {
 };
 
 script.onerror=()=>{
-
     console.error("quick-links-data.js の読み込みに失敗しました");
-
 };
 
 document.head.appendChild(script);
