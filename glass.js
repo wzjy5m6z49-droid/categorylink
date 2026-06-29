@@ -80,3 +80,46 @@ window.addEventListener("load",()=>{
     },100);
 
 });
+
+.glass-reflection{
+    position:absolute;
+    inset:0;
+    border-radius:inherit;
+    pointer-events:none;
+    z-index:4;
+
+    background:
+        radial-gradient(
+            ellipse at 18% 18%,
+            rgba(255,255,255,.34),
+            rgba(255,255,255,.10) 22%,
+            transparent 42%
+        ),
+        radial-gradient(
+            ellipse at 82% 88%,
+            rgba(160,245,255,.18),
+            rgba(160,245,255,.06) 24%,
+            transparent 46%
+        );
+
+    opacity:.55;
+    mix-blend-mode:screen;
+
+    animation:reflectionBreathe 6.5s ease-in-out infinite alternate;
+}
+
+.glass:hover .glass-reflection{
+    opacity:.78;
+}
+
+@keyframes reflectionBreathe{
+    0%{
+        transform:translate3d(-1%, -1%, 0) scale(1);
+        filter:blur(0px);
+    }
+
+    100%{
+        transform:translate3d(1%, 1%, 0) scale(1.04);
+        filter:blur(1.5px);
+    }
+}
