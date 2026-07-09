@@ -1,240 +1,83 @@
-/* ===========================
-   Glass Engine v2
-   White Background Edition
-=========================== */
+// ================================
+// Glass Engine v1
+// ================================
 
-.glass{
-    position:relative;
-    overflow:hidden;
-    isolation:isolate;
+const glassCards = [];
 
-    border-radius:20px;
+function initGlass() {
 
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,.92),
-            rgba(245,252,255,.72)
-        );
+    glassCards.length = 0;
 
-    border:1px solid rgba(120,190,215,.28);
+    document.querySelectorAll(".glass").forEach(card => {
 
-    box-shadow:
-        0 10px 24px rgba(40,90,120,.12),
-        inset 0 1px 0 rgba(255,255,255,.95),
-        inset 0 -1px 0 rgba(120,190,215,.12);
+        const layer = card.querySelector(".glass-layer");
+        const shine = card.querySelector(".glass-highlight");
 
-    transition:
-        transform .25s ease,
-        border-color .25s ease,
-        box-shadow .25s ease,
-        background .25s ease;
+        if (!layer || !shine) return;
+
+        glassCards.push({
+
+            card,
+            layer,
+            shine,
+
+            x: Math.random() * 40,
+            y: Math.random() * 40,
+
+            dx: (Math.random() - 0.5) * 0.02,
+            dy: (Math.random() - 0.5) * 0.02
+
+        });
+
+        card.addEventListener("mousemove", e => {
+
+            const rect = card.getBoundingClientRect();
+
+            const px = (e.clientX - rect.left) / rect.width;
+            const py = (e.clientY - rect.top) / rect.height;
+
+            layer.style.backgroundPosition =
+                `${50 + (px - 0.5) * 8}% ${50 + (py - 0.5) * 8}%`;
+
+        });
+
+        card.addEventListener("mouseleave", () => {
+
+            layer.style.backgroundPosition = "50% 50%";
+
+        });
+
+    });
+
 }
 
-.glass:hover{
-    transform:translateY(-3px) scale(1.01);
+function animateGlass() {
 
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,.98),
-            rgba(235,250,255,.82)
-        );
+    glassCards.forEach(g => {
 
-    border-color:rgba(40,170,210,.42);
+        g.x += g.dx;
+        g.y += g.dy;
 
-    box-shadow:
-        0 16px 34px rgba(40,90,120,.18),
-        0 0 0 1px rgba(90,210,240,.10),
-        inset 0 1px 0 rgba(255,255,255,1),
-        inset 0 -1px 0 rgba(60,180,220,.18);
+        if (g.x > 40 || g.x < 0) g.dx *= -1;
+        if (g.y > 40 || g.y < 0) g.dy *= -1;
+
+        g.layer.style.transform =
+            `translate(${g.x * 0.25}px, ${g.y * 0.18}px) scale(1.05)`;
+
+    });
+
+    requestAnimationFrame(animateGlass);
+
 }
 
-/* 内側の淡い海色反射 */
-.glass-layer{
-    position:absolute;
-    inset:-20%;
-    pointer-events:none;
+window.addEventListener("load", () => {
 
-    background:
-        radial-gradient(
-            circle at 18% 18%,
-            rgba(255,255,255,.88),
-            transparent 24%
-        ),
-        radial-gradient(
-            circle at 82% 82%,
-            rgba(0,185,220,.16),
-            transparent 34%
-        ),
-        radial-gradient(
-            circle at 30% 95%,
-            rgba(0,220,170,.10),
-            transparent 30%
-        );
+    setTimeout(() => {
 
-    filter:blur(10px);
-    opacity:.72;
+        initGlass();
 
-    animation:liquidFloat 9s ease-in-out infinite alternate;
-}
+        animateGlass();
 
-/* 流れる光沢 */
-.glass-highlight{
-    position:absolute;
-    inset:-60%;
-    pointer-events:none;
+    }, 100);
 
-    background:
-        linear-gradient(
-            110deg,
-            transparent 0%,
-            rgba(255,255,255,0) 34%,
-            rgba(255,255,255,.82) 49%,
-            rgba(255,255,255,0) 64%,
-            transparent 100%
-        );
-
-    transform:rotate(12deg);
-    opacity:0;
-
-    animation:glassShine 6s ease-in-out infinite;
-}
-
-/* 微細ノイズ */
-.glass-noise{
-    position:absolute;
-    inset:0;
-    pointer-events:none;
-
-    opacity:.055;
-
-    background-image:
-        radial-gradient(circle, rgba(40,120,150,.55) .7px, transparent .8px);
-
-    background-size:11px 11px;
-
-    mix-blend-mode:multiply;
-}
-
-/* 追加したreflection用 */
-.glass-reflection{
-    position:absolute;
-    inset:0;
-    border-radius:inherit;
-    pointer-events:none;
-    z-index:4;
-
-    background:
-        radial-gradient(
-            ellipse at 18% 16%,
-            rgba(255,255,255,.78),
-            rgba(255,255,255,.22) 24%,
-            transparent 48%
-        ),
-        radial-gradient(
-            ellipse at 86% 92%,
-            rgba(0,190,230,.14),
-            rgba(0,190,230,.04) 24%,
-            transparent 48%
-        );
-
-    opacity:.52;
-    mix-blend-mode:screen;
-
-    animation:reflectionBreathe 7s ease-in-out infinite alternate;
-}
-
-/* 本文 */
-.glass-content{
-    position:relative;
-    z-index:10;
-
-    width:100%;
-    height:100%;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-}
-
-/* 文字・アイコンを白背景用に補正 */
-.glass .left span{
-    color:#263846;
-    text-shadow:none;
-}
-
-.glass .left svg{
-    color:#179cc5;
-    filter:
-        drop-shadow(0 2px 4px rgba(30,120,150,.18));
-}
-
-.glass:hover .left svg{
-    color:#00a9d6;
-    filter:
-        drop-shadow(0 0 8px rgba(0,185,220,.28));
-}
-
-.glass .arrow{
-    color:#4c8ca3;
-}
-
-/* Animations */
-
-@keyframes liquidFloat{
-    0%{
-        transform:
-            translate3d(-2%, -1%, 0)
-            scale(1.02);
-    }
-
-    100%{
-        transform:
-            translate3d(2%, 1%, 0)
-            scale(1.06);
-    }
-}
-
-@keyframes glassShine{
-    0%{
-        transform:
-            translateX(-120%)
-            rotate(12deg);
-        opacity:0;
-    }
-
-    55%{
-        opacity:0;
-    }
-
-    66%{
-        opacity:.42;
-    }
-
-    84%{
-        transform:
-            translateX(120%)
-            rotate(12deg);
-        opacity:.12;
-    }
-
-    100%{
-        transform:
-            translateX(120%)
-            rotate(12deg);
-        opacity:0;
-    }
-}
-
-@keyframes reflectionBreathe{
-    0%{
-        transform:translate3d(-1%, -1%, 0) scale(1);
-        filter:blur(0);
-    }
-
-    100%{
-        transform:translate3d(1%, 1%, 0) scale(1.035);
-        filter:blur(1px);
-    }
-}
+});
