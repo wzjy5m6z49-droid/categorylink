@@ -8,75 +8,75 @@
     overflow:hidden;
     isolation:isolate;
 
-    border-radius:20px;
+    border-radius:18px;
 
     background:
         linear-gradient(
             135deg,
-            rgba(255,255,255,.92),
-            rgba(245,252,255,.72)
+            rgba(255,255,255,.88),
+            rgba(244,251,253,.72)
         );
 
-    border:1px solid rgba(120,190,215,.28);
+    border:1px solid rgba(93,154,177,.22);
 
     box-shadow:
-        0 10px 24px rgba(40,90,120,.12),
-        inset 0 1px 0 rgba(255,255,255,.95),
-        inset 0 -1px 0 rgba(120,190,215,.12);
+        0 8px 20px rgba(32,73,92,.10),
+        inset 0 1px 0 rgba(255,255,255,.96),
+        inset 0 -1px 0 rgba(87,159,184,.10);
 
     transition:
-        transform .25s ease,
-        border-color .25s ease,
-        box-shadow .25s ease,
-        background .25s ease;
+        transform .24s ease,
+        background .24s ease,
+        border-color .24s ease,
+        box-shadow .24s ease;
 }
 
 .glass:hover{
-    transform:translateY(-3px) scale(1.01);
+    transform:translateY(-2px);
 
     background:
         linear-gradient(
             135deg,
-            rgba(255,255,255,.98),
-            rgba(235,250,255,.82)
+            rgba(255,255,255,.96),
+            rgba(235,249,253,.84)
         );
 
-    border-color:rgba(40,170,210,.42);
+    border-color:rgba(22,154,197,.34);
 
     box-shadow:
-        0 16px 34px rgba(40,90,120,.18),
-        0 0 0 1px rgba(90,210,240,.10),
+        0 14px 28px rgba(32,73,92,.15),
+        0 0 0 1px rgba(42,190,223,.07),
         inset 0 1px 0 rgba(255,255,255,1),
-        inset 0 -1px 0 rgba(60,180,220,.18);
+        inset 0 -1px 0 rgba(42,167,202,.14);
 }
 
-/* 内側の淡い海色反射 */
+/* 淡い液体反射 */
 .glass-layer{
     position:absolute;
-    inset:-20%;
+    inset:-18%;
     pointer-events:none;
 
     background:
         radial-gradient(
-            circle at 18% 18%,
-            rgba(255,255,255,.88),
+            circle at 15% 18%,
+            rgba(255,255,255,.72),
             transparent 24%
         ),
         radial-gradient(
-            circle at 82% 82%,
-            rgba(0,185,220,.16),
+            circle at 84% 82%,
+            rgba(44,181,216,.11),
             transparent 34%
         ),
         radial-gradient(
-            circle at 30% 95%,
-            rgba(0,220,170,.10),
+            circle at 32% 96%,
+            rgba(52,201,167,.06),
             transparent 30%
         );
 
-    filter:blur(10px);
-    opacity:.72;
+    filter:blur(12px);
+    opacity:.55;
 
-    animation:liquidFloat 9s ease-in-out infinite alternate;
+    animation:liquidFloat 10s ease-in-out infinite alternate;
 }
 
 /* 流れる光沢 */
@@ -89,16 +89,16 @@
         linear-gradient(
             110deg,
             transparent 0%,
-            rgba(255,255,255,0) 34%,
-            rgba(255,255,255,.82) 49%,
-            rgba(255,255,255,0) 64%,
+            rgba(255,255,255,0) 36%,
+            rgba(255,255,255,.64) 49%,
+            rgba(255,255,255,0) 62%,
             transparent 100%
         );
 
-    transform:rotate(12deg);
+    transform:rotate(10deg);
     opacity:0;
 
-    animation:glassShine 6s ease-in-out infinite;
+    animation:glassShine 6.5s ease-in-out infinite;
 }
 
 /* 微細ノイズ */
@@ -107,17 +107,20 @@
     inset:0;
     pointer-events:none;
 
-    opacity:.055;
+    opacity:.028;
 
     background-image:
-        radial-gradient(circle, rgba(40,120,150,.55) .7px, transparent .8px);
+        radial-gradient(
+            circle,
+            rgba(58,116,138,.42) .65px,
+            transparent .8px
+        );
 
-    background-size:11px 11px;
-
+    background-size:13px 13px;
     mix-blend-mode:multiply;
 }
 
-/* 追加したreflection用 */
+/* 反射レイヤー */
 .glass-reflection{
     position:absolute;
     inset:0;
@@ -127,22 +130,26 @@
 
     background:
         radial-gradient(
-            ellipse at 18% 16%,
-            rgba(255,255,255,.78),
-            rgba(255,255,255,.22) 24%,
-            transparent 48%
+            ellipse at 16% 14%,
+            rgba(255,255,255,.56),
+            rgba(255,255,255,.10) 24%,
+            transparent 46%
         ),
         radial-gradient(
-            ellipse at 86% 92%,
-            rgba(0,190,230,.14),
-            rgba(0,190,230,.04) 24%,
-            transparent 48%
+            ellipse at 88% 94%,
+            rgba(31,173,210,.10),
+            rgba(31,173,210,.03) 22%,
+            transparent 46%
         );
 
-    opacity:.52;
+    opacity:.38;
     mix-blend-mode:screen;
 
-    animation:reflectionBreathe 7s ease-in-out infinite alternate;
+    animation:reflectionBreathe 8s ease-in-out infinite alternate;
+}
+
+.glass:hover .glass-reflection{
+    opacity:.52;
 }
 
 /* 本文 */
@@ -158,41 +165,65 @@
     justify-content:space-between;
 }
 
-/* 文字・アイコンを白背景用に補正 */
+/* 文字 */
 .glass .left span{
-    color:#263846;
+    color:#243746;
     text-shadow:none;
+    font-weight:650;
 }
 
+/* アイコン */
 .glass .left svg{
-    color:#179cc5;
+    color:#168eb6;
+
     filter:
-        drop-shadow(0 2px 4px rgba(30,120,150,.18));
+        drop-shadow(0 2px 4px rgba(32,110,140,.16));
+
+    transition:
+        transform .24s ease,
+        color .24s ease,
+        filter .24s ease;
 }
 
 .glass:hover .left svg{
-    color:#00a9d6;
+    transform:scale(1.08);
+    color:#00a7cf;
+
     filter:
-        drop-shadow(0 0 8px rgba(0,185,220,.28));
+        drop-shadow(0 0 7px rgba(0,171,209,.26));
 }
 
+/* 矢印 */
 .glass .arrow{
-    color:#4c8ca3;
+    color:#5d8798;
+    opacity:.5;
 }
 
-/* Animations */
+.glass:hover .arrow{
+    color:#168eb6;
+    opacity:1;
+}
+
+/* 押した時 */
+.glass:active{
+    transform:translateY(0) scale(.985);
+}
+
+/* ===========================
+   Animations
+=========================== */
 
 @keyframes liquidFloat{
     0%{
         transform:
-            translate3d(-2%, -1%, 0)
+            translate3d(-1.5%, -1%, 0)
             scale(1.02);
     }
 
     100%{
         transform:
-            translate3d(2%, 1%, 0)
-            scale(1.06);
+            translate3d(1.5%, 1%, 0)
+            scale(1.05);
     }
 }
 
@@ -200,41 +231,54 @@
     0%{
         transform:
             translateX(-120%)
-            rotate(12deg);
+            rotate(10deg);
         opacity:0;
     }
 
-    55%{
+    58%{
         opacity:0;
     }
 
-    66%{
-        opacity:.42;
+    68%{
+        opacity:.28;
     }
 
     84%{
         transform:
             translateX(120%)
-            rotate(12deg);
-        opacity:.12;
+            rotate(10deg);
+        opacity:.08;
     }
 
     100%{
         transform:
             translateX(120%)
-            rotate(12deg);
+            rotate(10deg);
         opacity:0;
     }
 }
 
 @keyframes reflectionBreathe{
     0%{
-        transform:translate3d(-1%, -1%, 0) scale(1);
+        transform:translate3d(-.7%, -.7%, 0) scale(1);
         filter:blur(0);
     }
 
     100%{
-        transform:translate3d(1%, 1%, 0) scale(1.035);
-        filter:blur(1px);
+        transform:translate3d(.7%, .7%, 0) scale(1.025);
+        filter:blur(.7px);
+    }
+}
+
+/* 動きを減らす設定への配慮 */
+@media (prefers-reduced-motion: reduce){
+    .glass,
+    .glass-layer,
+    .glass-highlight,
+    .glass-reflection,
+    .glass .left svg,
+    .glass .arrow{
+        animation:none !important;
+        transition:none !important;
     }
 }
