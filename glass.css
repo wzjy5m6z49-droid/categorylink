@@ -24,15 +24,35 @@
         inset 0 1px 0 rgba(255,255,255,.96),
         inset 0 -1px 0 rgba(87,159,184,.10);
 
+    transform:
+
+        perspective(700px)
+
+        rotateX(var(--glass-tilt-x,0deg))
+
+        rotateY(var(--glass-tilt-y,0deg));
+
     transition:
-        transform .24s ease,
-        background .24s ease,
-        border-color .24s ease,
-        box-shadow .24s ease;
+
+        transform .25s ease,
+
+        background .25s ease,
+
+        border-color .25s ease,
+
+        box-shadow .25s ease;
 }
 
 .glass:hover{
-    transform:translateY(-2px);
+    transform:
+
+        perspective(700px)
+
+        translateY(-2px)
+
+        rotateX(var(--glass-tilt-x,0deg))
+
+        rotateY(var(--glass-tilt-y,0deg));
 
     background:
         linear-gradient(
@@ -130,22 +150,27 @@
 
     background:
         radial-gradient(
-            ellipse at 16% 14%,
-            rgba(255,255,255,.56),
-            rgba(255,255,255,.10) 24%,
-            transparent 46%
+            circle at var(--glass-x, 50%) var(--glass-y, 50%),
+            rgba(255,255,255,.90) 0%,
+            rgba(255,255,255,.42) 10%,
+            rgba(119,221,242,.16) 24%,
+            transparent 48%
         ),
-        radial-gradient(
-            ellipse at 88% 94%,
-            rgba(31,173,210,.10),
-            rgba(31,173,210,.03) 22%,
-            transparent 46%
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.30),
+            transparent 38%,
+            rgba(32,171,205,.08)
         );
 
-    opacity:.38;
+    opacity:.46;
     mix-blend-mode:screen;
 
-    animation:reflectionBreathe 8s ease-in-out infinite alternate;
+    transition:opacity .25s ease;
+}
+
+.glass:hover .glass-reflection{
+    opacity:.72;
 }
 
 .glass:hover .glass-reflection{
